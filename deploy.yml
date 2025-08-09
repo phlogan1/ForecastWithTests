@@ -1,0 +1,21 @@
+pool: my-pc
+
+steps:
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'specific'
+    project: '41c6f49f-04ce-4a0b-ac7d-8f84c28162e9'
+    pipeline: '3'
+    buildVersionToDownload: 'latest'
+    downloadType: 'single'
+    artifactName: 'drop'
+    itemPattern: '**'
+    downloadPath: '$(System.ArtifactsDirectory)'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure subscription 1(7c009236-5a36-46a9-ad9f-db68a34027cd)'
+    appType: 'webApp'
+    appName: 'ForecastWithTest'
+    package: '$(System.ArtifactsDirectory)/*.zip'
+    deploymentMethod: 'auto'
