@@ -17,5 +17,5 @@ steps:
     azureSubscription: 'Azure subscription 1(7c009236-5a36-46a9-ad9f-db68a34027cd)'
     appType: 'webApp'
     appName: 'ForecastWithTest'
-    package: '$(System.ArtifactsDirectory)/*.zip'
+    package: '$(System.ArtifactsDirectory)/drop/*.zip'
     deploymentMethod: 'auto'
