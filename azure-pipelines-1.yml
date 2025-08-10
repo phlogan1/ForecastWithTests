@@ -1,0 +1,27 @@
+resources:
+- repo: self
+
+variables:
+  dockerRegistryServiceConnection: '105f5956-42a2-4563-8c3c-7778b9c9a016'
+  imageRepository: 'forecastwithtest'
+  containerRegistry: 'forecastreg.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/ForecastApp/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool: my-pc
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
